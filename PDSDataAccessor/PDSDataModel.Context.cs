@@ -25,5 +25,11 @@ namespace PDSDataAccessor
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<PackageVersion> PackageVersions { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<ServiceCenter> ServiceCenters { get; set; }
+        public virtual DbSet<Station> Stations { get; set; }
+        public virtual DbSet<Subscribe> Subscribes { get; set; }
     }
 }

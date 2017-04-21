@@ -4,22 +4,370 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PackageDefinitionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityContainer Name="PackageDefinitionModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="PackageDefinitionModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PackageDefinitionModelStoreContainer">
+    <EntitySet Name="Packages" EntityType="PackageDefinitionModel.Store.Packages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PackageVersions" EntityType="PackageDefinitionModel.Store.PackageVersions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Regions" EntityType="PackageDefinitionModel.Store.Regions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ServiceCenters" EntityType="PackageDefinitionModel.Store.ServiceCenters" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stations" EntityType="PackageDefinitionModel.Store.Stations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Subscribes" EntityType="PackageDefinitionModel.Store.Subscribes" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PackagePackageVersion" Association="PackageDefinitionModel.Store.PackagePackageVersion">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="PackageVersion" EntitySet="PackageVersions" />
+    </AssociationSet>
+    <AssociationSet Name="RegionServiceCenter" Association="PackageDefinitionModel.Store.RegionServiceCenter">
+      <End Role="Region" EntitySet="Regions" />
+      <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+    </AssociationSet>
+    <AssociationSet Name="ServiceCenterStation" Association="PackageDefinitionModel.Store.ServiceCenterStation">
+      <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+      <End Role="Station" EntitySet="Stations" />
+    </AssociationSet>
+    <AssociationSet Name="PackageSubscribe" Association="PackageDefinitionModel.Store.PackageSubscribe">
+      <End Role="Package" EntitySet="Packages" />
+      <End Role="Subscribe" EntitySet="Subscribes" />
+    </AssociationSet>
+    <AssociationSet Name="StationSubscribe" Association="PackageDefinitionModel.Store.StationSubscribe">
+      <End Role="Station" EntitySet="Stations" />
+      <End Role="Subscribe" EntitySet="Subscribes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Packages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PartNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsVersionControlled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PackageVersions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Version" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReleaseDatetime" Type="datetime" Nullable="false" />
+    <Property Name="SetupName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PackageId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Regions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ServiceCenters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RegionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ServiceCenterId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Subscribes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StationId" Type="int" Nullable="false" />
+    <Property Name="PackageId" Type="int" Nullable="false" />
+    <Property Name="Datetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="PackagePackageVersion">
+    <End Role="Package" Type="PackageDefinitionModel.Store.Packages" Multiplicity="1" />
+    <End Role="PackageVersion" Type="PackageDefinitionModel.Store.PackageVersions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PackageVersion">
+        <PropertyRef Name="PackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RegionServiceCenter">
+    <End Role="Region" Type="PackageDefinitionModel.Store.Regions" Multiplicity="1" />
+    <End Role="ServiceCenter" Type="PackageDefinitionModel.Store.ServiceCenters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Region">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceCenter">
+        <PropertyRef Name="RegionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ServiceCenterStation">
+    <End Role="ServiceCenter" Type="PackageDefinitionModel.Store.ServiceCenters" Multiplicity="1" />
+    <End Role="Station" Type="PackageDefinitionModel.Store.Stations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ServiceCenter">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Station">
+        <PropertyRef Name="ServiceCenterId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PackageSubscribe">
+    <End Role="Package" Type="PackageDefinitionModel.Store.Packages" Multiplicity="1" />
+    <End Role="Subscribe" Type="PackageDefinitionModel.Store.Subscribes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Package">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscribe">
+        <PropertyRef Name="PackageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StationSubscribe">
+    <End Role="Station" Type="PackageDefinitionModel.Store.Stations" Multiplicity="1" />
+    <End Role="Subscribe" Type="PackageDefinitionModel.Store.Subscribes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Station">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Subscribe">
+        <PropertyRef Name="StationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PackageDefinitionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PackageDefinitionEntities" annotation:LazyLoadingEnabled="true" />
+        <EntityContainer Name="PackageDefinitionEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Packages" EntityType="PackageDefinitionModel.Package" />
+          <EntitySet Name="PackageVersions" EntityType="PackageDefinitionModel.PackageVersion" />
+          <AssociationSet Name="PackagePackageVersion" Association="PackageDefinitionModel.PackagePackageVersion">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="PackageVersion" EntitySet="PackageVersions" />
+          </AssociationSet>
+          <EntitySet Name="Regions" EntityType="PackageDefinitionModel.Region" />
+          <EntitySet Name="ServiceCenters" EntityType="PackageDefinitionModel.ServiceCenter" />
+          <AssociationSet Name="RegionServiceCenter" Association="PackageDefinitionModel.RegionServiceCenter">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+          </AssociationSet>
+          <EntitySet Name="Stations" EntityType="PackageDefinitionModel.Station" />
+          <AssociationSet Name="ServiceCenterStation" Association="PackageDefinitionModel.ServiceCenterStation">
+            <End Role="ServiceCenter" EntitySet="ServiceCenters" />
+            <End Role="Station" EntitySet="Stations" />
+          </AssociationSet>
+          <EntitySet Name="Subscribes" EntityType="PackageDefinitionModel.Subscribe" />
+          <AssociationSet Name="PackageSubscribe" Association="PackageDefinitionModel.PackageSubscribe">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="Subscribe" EntitySet="Subscribes" />
+          </AssociationSet>
+          <AssociationSet Name="StationSubscribe" Association="PackageDefinitionModel.StationSubscribe">
+            <End Role="Station" EntitySet="Stations" />
+            <End Role="Subscribe" EntitySet="Subscribes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="PartNumber" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <NavigationProperty Name="PackageVersions" Relationship="PackageDefinitionModel.PackagePackageVersion" FromRole="Package" ToRole="PackageVersion" />
+          <NavigationProperty Name="Subscribes" Relationship="PackageDefinitionModel.PackageSubscribe" FromRole="Package" ToRole="Subscribe" />
+          <Property Name="IsVersionControlled" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Version" Type="String" Nullable="false" />
+          <Property Name="ReleaseDatetime" Type="DateTime" Nullable="false" />
+          <Property Name="SetupName" Type="String" Nullable="false" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Package" Relationship="PackageDefinitionModel.PackagePackageVersion" FromRole="PackageVersion" ToRole="Package" />
+        </EntityType>
+        <Association Name="PackagePackageVersion">
+          <End Type="PackageDefinitionModel.Package" Role="Package" Multiplicity="1" />
+          <End Type="PackageDefinitionModel.PackageVersion" Role="PackageVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageVersion">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" />
+          <NavigationProperty Name="ServiceCenters" Relationship="PackageDefinitionModel.RegionServiceCenter" FromRole="Region" ToRole="ServiceCenter" />
+        </EntityType>
+        <EntityType Name="ServiceCenter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="PackageDefinitionModel.RegionServiceCenter" FromRole="ServiceCenter" ToRole="Region" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stations" Relationship="PackageDefinitionModel.ServiceCenterStation" FromRole="ServiceCenter" ToRole="Station" />
+        </EntityType>
+        <Association Name="RegionServiceCenter">
+          <End Type="PackageDefinitionModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="PackageDefinitionModel.ServiceCenter" Role="ServiceCenter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ServiceCenter">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Station">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="ServiceCenterId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ServiceCenter" Relationship="PackageDefinitionModel.ServiceCenterStation" FromRole="Station" ToRole="ServiceCenter" />
+          <NavigationProperty Name="Subscribes" Relationship="PackageDefinitionModel.StationSubscribe" FromRole="Station" ToRole="Subscribe" />
+        </EntityType>
+        <Association Name="ServiceCenterStation">
+          <End Type="PackageDefinitionModel.ServiceCenter" Role="ServiceCenter" Multiplicity="1" />
+          <End Type="PackageDefinitionModel.Station" Role="Station" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceCenter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Station">
+              <PropertyRef Name="ServiceCenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Subscribe">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StationId" Type="Int32" Nullable="false" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Package" Relationship="PackageDefinitionModel.PackageSubscribe" FromRole="Subscribe" ToRole="Package" />
+          <NavigationProperty Name="Station" Relationship="PackageDefinitionModel.StationSubscribe" FromRole="Subscribe" ToRole="Station" />
+        </EntityType>
+        <Association Name="PackageSubscribe">
+          <End Type="PackageDefinitionModel.Package" Role="Package" Multiplicity="1" />
+          <End Type="PackageDefinitionModel.Subscribe" Role="Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="StationSubscribe">
+          <End Type="PackageDefinitionModel.Station" Role="Station" Multiplicity="1" />
+          <End Type="PackageDefinitionModel.Subscribe" Role="Subscribe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Station">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscribe">
+              <PropertyRef Name="StationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PackageDefinitionModelStoreContainer" CdmEntityContainer="PackageDefinitionEntities" />
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PackageDefinitionModelStoreContainer" CdmEntityContainer="PackageDefinitionEntities">
+    <EntitySetMapping Name="Packages">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.Package)">
+        <MappingFragment StoreEntitySet="Packages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsVersionControlled" ColumnName="IsVersionControlled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageVersions">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.PackageVersion)">
+        <MappingFragment StoreEntitySet="PackageVersions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ReleaseDatetime" ColumnName="ReleaseDatetime" />
+          <ScalarProperty Name="SetupName" ColumnName="SetupName" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regions">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.Region)">
+        <MappingFragment StoreEntitySet="Regions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServiceCenters">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.ServiceCenter)">
+        <MappingFragment StoreEntitySet="ServiceCenters">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stations">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.Station)">
+        <MappingFragment StoreEntitySet="Stations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ServiceCenterId" ColumnName="ServiceCenterId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscribes">
+      <EntityTypeMapping TypeName="IsTypeOf(PackageDefinitionModel.Subscribe)">
+        <MappingFragment StoreEntitySet="Subscribes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StationId" ColumnName="StationId" />
+          <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+          <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -33,7 +381,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

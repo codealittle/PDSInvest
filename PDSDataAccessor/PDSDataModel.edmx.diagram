@@ -4,7 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="df12d3a829ff4793a1d5c1516f9c62c0" Name="Diagram1" />
+      <Diagram DiagramId="df12d3a829ff4793a1d5c1516f9c62c0" Name="Diagram1" >
+        <EntityTypeShape EntityType="PackageDefinitionModel.Package" Width="2.125" PointX="3.75" PointY="1.5" />
+        <EntityTypeShape EntityType="PackageDefinitionModel.PackageVersion" Width="2.25" PointX="8.375" PointY="0.5" />
+        <AssociationConnector Association="PackageDefinitionModel.PackagePackageVersion" />
+        <EntityTypeShape EntityType="PackageDefinitionModel.Region" Width="1.5" PointX="1.75" PointY="4.375" />
+        <EntityTypeShape EntityType="PackageDefinitionModel.ServiceCenter" Width="1.5" PointX="4.625" PointY="4.375" />
+        <AssociationConnector Association="PackageDefinitionModel.RegionServiceCenter" />
+        <EntityTypeShape EntityType="PackageDefinitionModel.Station" Width="1.5" PointX="7.125" PointY="4.375" />
+        <AssociationConnector Association="PackageDefinitionModel.ServiceCenterStation" />
+        <EntityTypeShape EntityType="PackageDefinitionModel.Subscribe" Width="2" PointX="9.875" PointY="4.375" />
+        <AssociationConnector Association="PackageDefinitionModel.PackageSubscribe" ></AssociationConnector>
+        <AssociationConnector Association="PackageDefinitionModel.StationSubscribe" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
