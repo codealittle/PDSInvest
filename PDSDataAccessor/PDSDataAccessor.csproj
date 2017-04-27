@@ -96,10 +96,6 @@
       <Project>{c70261d5-73be-4bd9-8a98-27f8f55febbb}</Project>
       <Name>PDSDataModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PDSDataStructure\PDSDataStructure.csproj">
-      <Project>{1e1010d2-3140-4684-ace2-675c1ef64031}</Project>
-      <Name>PDSDataStructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="PDSDataModel.edmx">

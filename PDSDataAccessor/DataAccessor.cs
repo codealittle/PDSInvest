@@ -14,16 +14,16 @@ namespace PDSDataAccessor
         {
         }
 
-        public PDSDataStructure.PackageDefinition GetPackageDefinition()
+        public PDSDataModel.PackageDefinition GetPackageDefinition()
         {
-            var packageDefinition = new PDSDataStructure.PackageDefinition();
+            var packageDefinition = new PDSDataModel.PackageDefinition();
 
             return null;
         }
 
-        private PDSDataStructure.Subscribe CloneSubscribe(Subscribe subscribe)
+        private PDSDataModel.Subscribe CloneSubscribe(Subscribe subscribe)
         {
-            var clonedSubscribe = new PDSDataStructure.Subscribe
+            var clonedSubscribe = new PDSDataModel.Subscribe
             {
                  Id = subscribe.Id,
                  StationId = subscribe.StationId,
