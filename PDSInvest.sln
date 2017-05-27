@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDS.DataModel", "PDSDataMod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDS.Infrastructure", "PDS.Infrastructure\PDS.Infrastructure.csproj", "{45D7924D-91C7-4FA6-934F-F5ACD1A90B64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDS.ViewModules", "PDS.ViewModules\PDS.ViewModules.csproj", "{77CF0731-81A5-44AC-B488-0025FB6C2D3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{45D7924D-91C7-4FA6-934F-F5ACD1A90B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45D7924D-91C7-4FA6-934F-F5ACD1A90B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45D7924D-91C7-4FA6-934F-F5ACD1A90B64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77CF0731-81A5-44AC-B488-0025FB6C2D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77CF0731-81A5-44AC-B488-0025FB6C2D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77CF0731-81A5-44AC-B488-0025FB6C2D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77CF0731-81A5-44AC-B488-0025FB6C2D3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

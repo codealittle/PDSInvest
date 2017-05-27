@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDS.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -11,18 +12,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PDS.Client
+namespace PDS.ViewModules
 {
     /// <summary>
-    /// Interaction logic for Shell.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    [Export]
-    public partial class Shell : Window
+    [ViewExport(RegionName = RegionNames.MainViewRegion)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public partial class MainView : UserControl
     {
-        [ImportingConstructor]
-        public Shell()
+        public MainView()
         {
             InitializeComponent();
         }

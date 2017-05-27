@@ -16,5 +16,7 @@ namespace PDS.Infrastructure
         public const string MessageBarRegion = "MessageBarRegion";
         public const string ServiceCenterShowRegion = "ServiceCenterShowRegion";
         public const string LoadingRegion = "LoadingRegion";
+
+        public const string MainViewRegion = "MainViewRegion";
     }
 }

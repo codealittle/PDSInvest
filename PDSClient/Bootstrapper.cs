@@ -1,4 +1,5 @@
 ﻿using PDS.Infrastructure;
+using PDS.ViewModules;
 using Prism.Mef;
 using Prism.Regions;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PDSClient
+namespace PDS.Client
 {
     public class Bootstrapper : MefBootstrapper
     {
@@ -28,6 +29,7 @@ namespace PDSClient
         {
             base.ConfigureAggregateCatalog();
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(GetType().Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ViewModules.ViewModules).Assembly));
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
