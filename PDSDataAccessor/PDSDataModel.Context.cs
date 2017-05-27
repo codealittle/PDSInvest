@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PDSDataAccessor
+namespace PDS.DataAccessor
 {
     using System;
     using System.Data.Entity;

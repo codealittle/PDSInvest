@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +11,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PDSClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Shell.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    [Export]
+    public partial class Shell : Window
     {
-        public MainWindow()
+        [ImportingConstructor]
+        public Shell()
         {
             InitializeComponent();
         }
