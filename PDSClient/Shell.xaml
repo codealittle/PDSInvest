@@ -9,6 +9,6 @@
         mc:Ignorable="d"
         Title="Shell" Height="300" Width="300">
     <Grid>
-        <!--<UserControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.MainViewRegion}" Panel.ZIndex="1" Visibility="Visible"/>-->
+        <UserControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.MainViewRegion}" Panel.ZIndex="1" Visibility="Visible"/>
     </Grid>
 </Window>

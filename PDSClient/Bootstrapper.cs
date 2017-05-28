@@ -30,6 +30,7 @@ namespace PDS.Client
             base.ConfigureAggregateCatalog();
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(GetType().Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ViewModules.ViewModules).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(Infrastructure.AutoPopulateExportedViewsBehavior).Assembly));
         }
 
         protected override IRegionBehaviorFactory ConfigureDefaultRegionBehaviors()
